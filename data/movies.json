@@ -1,0 +1,126 @@
+[
+  {
+    "_id": "1",
+    "title": "1+1",
+    "year": 2011,
+    "director": "Olivier Nakache, Éric Toledano",
+    "genre": [
+      "Comedy",
+      "Drama"
+    ],
+    "rating": 8.8,
+    "age_rating": "PG-13",
+    "description": "After he becomes a quadriplegic from a paragliding accident...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  },
+  {
+    "_id": "2",
+    "title": "WALL·E",
+    "year": 2008,
+    "director": "Andrew Stanton",
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Family"
+    ],
+    "rating": 8.4,
+    "age_rating": "G",
+    "description": "In the distant future, a small waste-collecting robot...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  },
+  {
+    "_id": "3",
+    "title": "The Dark Knight",
+    "year": 2008,
+    "director": "Christopher Nolan",
+    "genre": [
+      "Action",
+      "Crime",
+      "Drama"
+    ],
+    "rating": 9,
+    "age_rating": "PG-13",
+    "description": "When the menace known as the Joker wreaks havoc and chaos...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  },
+  {
+    "_id": "4",
+    "title": "Fight Club",
+    "year": 1999,
+    "director": "David Fincher",
+    "genre": [
+      "Drama"
+    ],
+    "rating": 8.8,
+    "age_rating": "R",
+    "description": "An insomniac office worker and a devil-may-care soap maker form...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  },
+  {
+    "_id": "5",
+    "title": "Interstellar",
+    "year": 2014,
+    "director": "Christopher Nolan",
+    "genre": [
+      "Adventure",
+      "Drama",
+      "Sci-Fi"
+    ],
+    "rating": 8.6,
+    "age_rating": "PG-13",
+    "description": "A team of explorers travel through a wormhole in space...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  },
+  {
+    "_id": "6",
+    "title": "Pulp Fiction",
+    "year": 1994,
+    "director": "Quentin Tarantino",
+    "genre": [
+      "Crime",
+      "Drama"
+    ],
+    "rating": 8.9,
+    "age_rating": "R",
+    "description": "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  },
+  {
+    "_id": "7",
+    "title": "Spider-Man: Across the Spider-Verse",
+    "year": 2023,
+    "director": "Joaquim Dos Santos, Kemp Powers, Justin K. Thompson",
+    "genre": [
+      "Animation",
+      "Action",
+      "Adventure"
+    ],
+    "rating": 8.6,
+    "age_rating": "PG",
+    "description": "Miles Morales catapults across the Multiverse...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  },
+  {
+    "_id": "8",
+    "title": "Spirited Away",
+    "year": 2001,
+    "director": "Hayao Miyazaki",
+    "genre": [
+      "Animation",
+      "Adventure",
+      "Family"
+    ],
+    "rating": 8.6,
+    "age_rating": "PG",
+    "description": "During her family's move to the suburbs, a sullen 10-year-old girl wanders into...",
+    "createdAt": "2026-01-22T08:31:10.250Z",
+    "updatedAt": "2026-01-22T08:31:10.250Z"
+  }
+]
