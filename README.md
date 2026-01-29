@@ -188,7 +188,7 @@ curl -X PUT http://localhost:3000/api/movies/YOUR_MOVIE_ID \
 curl -X DELETE http://localhost:3000/api/movies/YOUR_MOVIE_ID
 ```
 
-## 🔒 Security Notes
+## Security Notes
 
 - All environment variables are properly configured
 - No hardcoded credentials in source code
@@ -207,7 +207,7 @@ curl -X DELETE http://localhost:3000/api/movies/YOUR_MOVIE_ID
 | **Hot Reload** | Yes (nodemon) | No |
 | **Access** | localhost:3000 | Public URL |
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Database Connection Issues
 ```
