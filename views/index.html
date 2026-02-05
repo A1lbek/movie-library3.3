@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Library - Home</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .btn-login, .btn-register {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid white;
+    }
+
+    .btn-logout {
+      background: rgba(255,0,0,0.7);
+      border: 1px solid white;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-logout:hover {
+      background: rgba(255,0,0,0.9);
+    }
+
+    .username-display {
+      color: white;
+      margin-right: 10px;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 36px;
+    }
+
+    .crud-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+
+    .crud-section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    .add-movie-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .form-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.2s;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      padding: 12px 24px;
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .movies-table {
+      width: 100%;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+      background: #f8f9fa;
+    }
+
+    .btn-edit, .btn-delete {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      margin-right: 5px;
+    }
+
+    .btn-edit {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .btn-delete {
+      background: #dc3545;
+      color: white;
+    }
+
+    .auth-required {
+      background: #fff3cd;
+      color: #856404;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      border: 1px solid #ffeeba;
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #667eea;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+
+    .search-box {
+      margin-bottom: 30px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background: white;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .close {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .close:hover {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="logo">🎬 Movie Library</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <span id="authButtons">
+          <a href="/login" class="btn-login">Login</a>
+          <a href="/register" class="btn-register">Register</a>
+        </span>
+        <span id="userInfo" style="display:none;">
+          <span class="username-display"><i class="fas fa-user"></i> <span id="usernameText"></span></span>
+          <button onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Movie Collection Manager</h1>
+
+    <div id="messageBox" class="message"></div>
+
+    <!-- Add Movie Section (Protected) -->
+    <div class="crud-section" id="addMovieSection" style="display:none;">
+      <h2><i class="fas fa-plus-circle"></i> Add New Movie</h2>
+      <form id="addMovieForm" class="add-movie-form">
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input type="text" id="title" required>
+        </div>
+        <div class="form-group">
+          <label for="year">Year *</label>
+          <input type="number" id="year" min="1888" max="2030" required>
+        </div>
+        <div class="form-group">
+          <label for="director">Director</label>
+          <input type="text" id="director">
+        </div>
+        <div class="form-group">
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" placeholder="e.g., Action, Drama">
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating (0-10)</label>
+          <input type="number" id="rating" min="0" max="10" step="0.1">
+        </div>
+        <div class="form-group">
+          <label for="age_rating">Age Rating</label>
+          <select id="age_rating">
+            <option value="">Select...</option>
+            <option value="0+">0+</option>
+            <option value="6+">6+</option>
+            <option value="12+">12+</option>
+            <option value="14+">14+</option>
+            <option value="16+">16+</option>
+            <option value="18+">18+</option>
+          </select>
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label for="description">Description</label>
+          <textarea id="description" rows="3"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="submitBtn">
+            <i class="fas fa-save"></i> Add Movie
+          </button>
+          <button type="button" class="btn-secondary" onclick="document.getElementById('addMovieForm').reset()">
+            <i class="fas fa-times"></i> Clear
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Auth Required Message -->
+    <div class="auth-required" id="authRequiredMsg" style="display:none;">
+      <i class="fas fa-lock"></i> <strong>Authentication Required</strong><br>
+      Please <a href="/login">login</a> or <a href="/register">register</a> to add, edit, or delete movies.
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search movies by title, director, or genre...">
+    </div>
+
+    <!-- Movies Table -->
+    <div class="movies-table" id="moviesTable">
+      <div class="loading">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+        <p>Loading movies...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h2>Edit Movie</h2>
+      <form id="editMovieForm" class="add-movie-form">
+        <input type="hidden" id="edit_id">
+        <div class="form-group">
+          <label for="edit_title">Title *</label>
+          <input type="text" id="edit_title" required>
+        </div>
+        <div class="form-group">
+          <label for="edit_year">Year *</label>
+          <input type="number" id="edit_year" min="1888" max="2030" required>
+        </div>
+        <div class="form-group">
+          <label for="edit_director">Director</label>
+          <input type="text" id="edit_director">
+        </div>
+        <div class="form-group">
+          <label for="edit_genre">Genre</label>
+          <input type="text" id="edit_genre">
+        </div>
+        <div class="form-group">
+          <label for="edit_rating">Rating</label>
+          <input type="number" id="edit_rating" min="0" max="10" step="0.1">
+        </div>
+        <div class="form-group">
+          <label for="edit_age_rating">Age Rating</label>
+          <select id="edit_age_rating">
+            <option value="">Select...</option>
+            <option value="0+">0+</option>
+            <option value="6+">6+</option>
+            <option value="12+">12+</option>
+            <option value="14+">14+</option>
+            <option value="16+">16+</option>
+            <option value="18+">18+</option>
+          </select>
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label for="edit_description">Description</label>
+          <textarea id="edit_description" rows="3"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+          <button type="button" class="btn-secondary" onclick="closeEditModal()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let isAuthenticated = false;
+    let currentUser = null;
+    let allMovies = [];
+
+    // Check authentication on page load
+    async function checkAuth() {
+      try {
+        const response = await fetch('/api/auth/me');
+        if (response.ok) {
+          const data = await response.json();
+          isAuthenticated = true;
+          currentUser = data.user;
+          updateAuthUI();
+        } else {
+          isAuthenticated = false;
+          currentUser = null;
+          updateAuthUI();
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        isAuthenticated = false;
+        updateAuthUI();
+      }
+    }
+
+    function updateAuthUI() {
+      if (isAuthenticated && currentUser) {
+        document.getElementById('authButtons').style.display = 'none';
+        document.getElementById('userInfo').style.display = 'inline';
+        document.getElementById('usernameText').textContent = currentUser.username;
+        document.getElementById('addMovieSection').style.display = 'block';
+        document.getElementById('authRequiredMsg').style.display = 'none';
+      } else {
+        document.getElementById('authButtons').style.display = 'inline';
+        document.getElementById('userInfo').style.display = 'none';
+        document.getElementById('addMovieSection').style.display = 'none';
+        document.getElementById('authRequiredMsg').style.display = 'block';
+      }
+    }
+
+    async function logout() {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+        showMessage('Logged out successfully', 'success');
+        isAuthenticated = false;
+        currentUser = null;
+        updateAuthUI();
+        loadMovies();
+      } catch (error) {
+        showMessage('Logout failed', 'error');
+      }
+    }
+
+    // Load movies
+    async function loadMovies() {
+      try {
+        const response = await fetch('/api/movies');
+        const data = await response.json();
+        allMovies = data.movies || [];
+        renderMovies(allMovies);
+      } catch (error) {
+        document.getElementById('moviesTable').innerHTML = 
+          '<div class="empty-state"><i class="fas fa-exclamation-circle fa-3x"></i><p>Failed to load movies</p></div>';
+      }
+    }
+
+    function renderMovies(movies) {
+      const tableDiv = document.getElementById('moviesTable');
+      
+      if (movies.length === 0) {
+        tableDiv.innerHTML = '<div class="empty-state"><i class="fas fa-film fa-3x"></i><p>No movies found</p></div>';
+        return;
+      }
+
+      let html = '<table><thead><tr>';
+      html += '<th>Title</th><th>Year</th><th>Director</th><th>Genre</th><th>Rating</th><th>Age</th>';
+      if (isAuthenticated) {
+        html += '<th>Actions</th>';
+      }
+      html += '</tr></thead><tbody>';
+
+      movies.forEach(movie => {
+        html += '<tr>';
+        html += `<td><strong>${movie.title}</strong></td>`;
+        html += `<td>${movie.year}</td>`;
+        html += `<td>${movie.director || 'Unknown'}</td>`;
+        html += `<td>${Array.isArray(movie.genre) ? movie.genre.join(', ') : movie.genre}</td>`;
+        html += `<td>${movie.rating ? movie.rating + '/10' : 'N/A'}</td>`;
+        html += `<td>${movie.age_rating || 'N/A'}</td>`;
+        
+        if (isAuthenticated) {
+          html += `<td>
+            <button class="btn-edit" onclick='editMovie(${JSON.stringify(movie).replace(/'/g, "&apos;")})'>
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="btn-delete" onclick="deleteMovie('${movie._id}', '${movie.title}')">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </td>`;
+        }
+        html += '</tr>';
+      });
+
+      html += '</tbody></table>';
+      tableDiv.innerHTML = html;
+    }
+
+    // Add movie
+    document.getElementById('addMovieForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+
+      const movieData = {
+        title: document.getElementById('title').value,
+        year: document.getElementById('year').value,
+        director: document.getElementById('director').value,
+        genre: document.getElementById('genre').value.split(',').map(g => g.trim()).filter(g => g),
+        rating: document.getElementById('rating').value,
+        age_rating: document.getElementById('age_rating').value,
+        description: document.getElementById('description').value
+      };
+
+      try {
+        const response = await fetch('/api/movies', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(movieData)
+        });
+
+        if (response.ok) {
+          showMessage('Movie added successfully!', 'success');
+          document.getElementById('addMovieForm').reset();
+          loadMovies();
+        } else {
+          const error = await response.json();
+          showMessage(error.error || 'Failed to add movie', 'error');
+        }
+      } catch (error) {
+        showMessage('Network error', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Add Movie';
+      }
+    });
+
+    // Edit movie
+    function editMovie(movie) {
+      document.getElementById('edit_id').value = movie._id;
+      document.getElementById('edit_title').value = movie.title;
+      document.getElementById('edit_year').value = movie.year;
+      document.getElementById('edit_director').value = movie.director || '';
+      document.getElementById('edit_genre').value = Array.isArray(movie.genre) ? movie.genre.join(', ') : movie.genre;
+      document.getElementById('edit_rating').value = movie.rating || '';
+      document.getElementById('edit_age_rating').value = movie.age_rating || '';
+      document.getElementById('edit_description').value = movie.description || '';
+      
+      document.getElementById('editModal').style.display = 'block';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+    }
+
+    document.getElementById('editMovieForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById('edit_id').value;
+      const movieData = {
+        title: document.getElementById('edit_title').value,
+        year: document.getElementById('edit_year').value,
+        director: document.getElementById('edit_director').value,
+        genre: document.getElementById('edit_genre').value.split(',').map(g => g.trim()).filter(g => g),
+        rating: document.getElementById('edit_rating').value,
+        age_rating: document.getElementById('edit_age_rating').value,
+        description: document.getElementById('edit_description').value
+      };
+
+      try {
+        const response = await fetch(`/api/movies/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(movieData)
+        });
+
+        if (response.ok) {
+          showMessage('Movie updated successfully!', 'success');
+          closeEditModal();
+          loadMovies();
+        } else {
+          const error = await response.json();
+          showMessage(error.error || 'Failed to update movie', 'error');
+        }
+      } catch (error) {
+        showMessage('Network error', 'error');
+      }
+    });
+
+    // Delete movie
+    async function deleteMovie(id, title) {
+      if (!confirm(`Are you sure you want to delete "${title}"?`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/movies/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          showMessage('Movie deleted successfully!', 'success');
+          loadMovies();
+        } else {
+          const error = await response.json();
+          showMessage(error.error || 'Failed to delete movie', 'error');
+        }
+      } catch (error) {
+        showMessage('Network error', 'error');
+      }
+    }
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      if (query === '') {
+        renderMovies(allMovies);
+        return;
+      }
+
+      const filtered = allMovies.filter(movie => 
+        movie.title.toLowerCase().includes(query) ||
+        (movie.director && movie.director.toLowerCase().includes(query)) ||
+        (Array.isArray(movie.genre) && movie.genre.some(g => g.toLowerCase().includes(query)))
+      );
+      renderMovies(filtered);
+    });
+
+    // Show message
+    function showMessage(message, type) {
+      const msgBox = document.getElementById('messageBox');
+      msgBox.textContent = message;
+      msgBox.className = `message ${type}`;
+      msgBox.style.display = 'block';
+      setTimeout(() => {
+        msgBox.style.display = 'none';
+      }, 5000);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', async () => {
+      await checkAuth();
+      await loadMovies();
+    });
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('editModal');
+      if (event.target == modal) {
+        closeEditModal();
+      }
+    }
+  </script>
+</body>
+</html>
