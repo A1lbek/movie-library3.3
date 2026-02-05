@@ -26,7 +26,7 @@ app.use(isAuthenticated);
 
 app.use((req, res, next) => {
   const timestamp = new Date().toISOString();
-  const authStatus = req.session.userId ? '🔐' : '🔓';
+  const authStatus = req.session.userId ? '+' : '-';
   console.log(`${authStatus} [${timestamp}] ${req.method} ${req.url}`);
   next();
 });

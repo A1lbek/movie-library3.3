@@ -12,14 +12,12 @@ async function connectToDatabase() {
     await client.connect();
     
     db = client.db('movie-db');
-    console.log('✅ Connected to MongoDB');
+    console.log('Connected to MongoDB');
     
     return db;
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error.message);
+    console.error('MongoDB connection error:', error.message);
     console.log('Make sure MongoDB is running on port 27017');
-    // Не завершаем процесс, чтобы сервер продолжал работать
-    // process.exit(1);
   }
 }
 
