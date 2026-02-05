@@ -10,25 +10,20 @@ const SimpleSession = require('./middleware/simpleSession');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Initialize session
 const sessionManager = new SimpleSession({
   secret: process.env.SESSION_SECRET || 'movie-library-secret-change-in-production',
   cookieName: 'movielib_session',
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  maxAge: 24 * 60 * 60 * 1000 
 });
 
-// Middleware
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Session middleware
 app.use(sessionManager.middleware());
 
-// Auth status middleware
 app.use(isAuthenticated);
 
-// Request logger
 app.use((req, res, next) => {
   const timestamp = new Date().toISOString();
   const authStatus = req.session.userId ? '🔐' : '🔓';
@@ -36,7 +31,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// File-based data functions (kept for backwards compatibility)
 const dataDir = path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
 
@@ -85,7 +79,6 @@ function generateMovieId() {
   return Date.now().toString() + Math.random().toString(36).substr(2, 9);
 }
 
-// Validation middleware for movies
 function validateMovieData(req, res, next) {
   const { title, year } = req.body;
   
@@ -105,10 +98,7 @@ function validateMovieData(req, res, next) {
   next();
 }
 
-// Auth routes
 app.use('/api/auth', authRouter);
-
-// Public routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
@@ -135,7 +125,6 @@ app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'contact.html'));
 });
 
-// Movies API - GET (public)
 app.get('/api/movies', (req, res) => {
   try {
     const movies = readMoviesFromFile();
@@ -232,7 +221,6 @@ app.get('/api/movies/:id', (req, res) => {
   }
 });
 
-// Protected routes - CREATE, UPDATE, DELETE require authentication
 app.post('/api/movies', requireAuth, validateMovieData, (req, res) => {
   try {
     const { title, year, director, genre, rating, age_rating, description } = req.body;

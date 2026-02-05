@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Movie Library - Assignment 4: Authentication & Security
 
 ## Overview
